@@ -75,8 +75,44 @@ namespace SortConsole
                     sorted--;
                 }
             }
-            return null;
+            return arr;
         }
+
+
+        public int partOfSortHoara(int[] arr, int left, int right)
+        {
+            int pivot = arr[(left + right) / 2];
+            while(left <= right)
+            {
+                while (arr[left] < pivot) left++;
+                while (arr[right] > pivot) right--;
+                if (left <= right)
+                {
+                    int temp = arr[left];
+                    arr[left] = arr[right];
+                    arr[right] = temp;
+                    left++;
+                    right--;
+                }
+            }
+
+            return left;
+        }
+        private int[] quickSortHoara(int[] arr, int start, int end)
+        {
+            if(start >= end)
+            {
+                return arr;
+            }
+            int rightStart = partOfSortHoara(arr, start, end);
+            quickSortHoara(arr, start, rightStart - 1);
+            quickSortHoara(arr,rightStart, end);
+        }
+        private void quickSortHoara(int[] arr) {
+            quickSortHoara(arr, 0, arr.Length - 1);
+
+        }
+
     }
     internal class Program
     {
